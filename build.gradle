@@ -23,6 +23,8 @@ buildscript {
     }
     dependencies {
         classpath "com.haulmont.gradle:cuba-plugin:$cubaVersion"
+        // Bintray upload plugin
+        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0"
     }
 }
 
@@ -79,6 +81,13 @@ configure([globalModule, coreModule, webModule]) {
 
 configure(globalModule) {
     task enhance(type: CubaEnhancing)
+
+    jar {
+        manifest {
+            attributes('App-Component-Id': cuba.artifact.group)
+            attributes('App-Component-Version': cuba.artifact.version + (cuba.artifact.isSnapshot ? '-SNAPSHOT' : ''))
+        }
+    }
 
     
 }
@@ -203,4 +212,36 @@ task restart(dependsOn: ['stop', ":${modulePrefix}-core:deploy", ":${modulePrefi
 
 task wrapper(type: Wrapper) {
     gradleVersion = '4.3.1'
+}
+subprojects {
+    apply plugin: 'com.jfrog.bintray'
+
+    bintray {
+        user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
+        key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
+
+        configurations = ['archives']
+
+        // make files public ?
+        publish = true
+        // override existing artifacts?
+        override = false
+
+        // metadata
+        pkg {
+            repo = 'cuba-configurable-dashboards'           // your repository name
+            name = 'nonccdb'  // package name - it will be created upon upload
+            desc = 'CUBA Configurable Dashboards Add-On'  // optional package description
+
+            websiteUrl = 'https://github.com/adhawan325/cuba-configurable-dashboards'
+            issueTrackerUrl = 'https://github.com/adhawan325/cuba-configurable-dashboards/issues'
+            vcsUrl = 'https://github.com/adhawan325/cuba-configurable-dashboards.git' // mandatory for Open Source projects
+
+            licenses = ["Apache-2.0"]
+            labels = ['cuba-platform', 'opensource']
+
+            //githubRepo = 'amazingsearch/cuba-platform' // optional Github repository
+            //githubReleaseNotesFile = 'README.md' // optional Github readme file
+        }
+    }
 }

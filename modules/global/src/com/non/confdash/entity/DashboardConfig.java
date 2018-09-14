@@ -34,6 +34,9 @@ public class DashboardConfig extends StandardEntity {
     @Column(name = "QUERY")
     protected String query;
 
+    @Column(name = "GROUP_BY")
+    protected String groupBy;
+
     @NotNull
     @Column(name = "TYPE_", nullable = false)
     protected Integer type;
@@ -43,6 +46,15 @@ public class DashboardConfig extends StandardEntity {
         inverseJoinColumns = @JoinColumn(name = "USER_DASHBOARD_CONFIG_ID"))
     @ManyToMany
     protected List<UserDashboardConfig> userDashboardConfigs;
+
+    public void setGroupBy(String groupBy) {
+        this.groupBy = groupBy;
+    }
+
+    public String getGroupBy() {
+        return groupBy;
+    }
+
 
     public void setType(ConfChartType type) {
         this.type = type == null ? null : type.getId();

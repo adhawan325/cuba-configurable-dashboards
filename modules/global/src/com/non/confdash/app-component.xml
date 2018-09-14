@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<app-component xmlns="http://schemas.haulmont.com/cuba/app-component.xsd"
+               dependsOn="com.haulmont.charts, com.haulmont.cuba, com.non.dta">
+    <module blocks="*"
+            name="global">
+        <artifact appJar="true"
+                  name="nonccdb-global"/>
+        <property name="cuba.persistenceConfig"
+                  value="+com/non/confdash/persistence.xml"/>
+        <property name="cuba.metadataConfig"
+                  value="+com/non/confdash/metadata.xml"/>
+        <property name="cuba.viewsConfig"
+                  value="+com/non/confdash/views.xml"/>
+    </module>
+    <module blocks="core"
+            dependsOn="global"
+            name="core">
+        <artifact appJar="true"
+                  name="nonccdb-core"/>
+        <artifact classifier="db"
+                  configuration="dbscripts"
+                  ext="zip"
+                  name="nonccdb-core"/>
+        <property name="cuba.springContextConfig"
+                  value="+com/non/confdash/spring.xml"/>
+        <property name="cuba.mainMessagePack"
+                  value="+com.non.confdash.core"/>
+    </module>
+    <module blocks="web"
+            dependsOn="global"
+            name="web">
+        <artifact appJar="true"
+                  name="nonccdb-web"/>
+        <artifact classifier="web"
+                  configuration="webcontent"
+                  ext="zip"
+                  name="nonccdb-web"/>
+        <property name="cuba.springContextConfig"
+                  value="+com/non/confdash/web-spring.xml"/>
+        <property name="cuba.dispatcherSpringContextConfig"
+                  value="+com/non/confdash/web-dispatcher-spring.xml"/>
+        <property name="cuba.windowConfig"
+                  value="+com/non/confdash/web-screens.xml"/>
+        <property name="cuba.menuConfig"
+                  value="+com/non/confdash/web-menu.xml"/>
+        <property name="cuba.permissionConfig"
+                  value="+com/non/confdash/web-permissions.xml"/>
+        <property name="cuba.mainMessagePack"
+                  value="+com.non.confdash.web"/>
+    </module>
+</app-component>

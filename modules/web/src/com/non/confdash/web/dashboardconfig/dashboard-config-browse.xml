@@ -36,6 +36,7 @@
                 <column id="field"/>
                 <column id="query"/>
                 <column id="type"/>
+                <column id="groupBy"/>
             </columns>
             <rows datasource="dashboardConfigsDs"/>
             <rowsCount/>

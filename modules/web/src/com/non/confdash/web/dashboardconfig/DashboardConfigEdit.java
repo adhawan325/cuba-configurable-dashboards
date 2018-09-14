@@ -37,6 +37,8 @@ public class DashboardConfigEdit extends AbstractEditor<DashboardConfig> {
     private Metadata metadata;
     @Inject
     private LookupField groupBy;
+    @Named("fieldGroup.groupBy")
+    private TextField groupByField;
 
     @Override
     public void init(Map<String, Object> params) {
@@ -62,10 +64,13 @@ public class DashboardConfigEdit extends AbstractEditor<DashboardConfig> {
             {
                 groupBy.setOptionsMap(getAttributes(metadata.getClass(property.getJavaType())));
                 groupBy.setVisible(true);
+                groupBy.setRequired(true);
             }
             else
             {
                 groupBy.setVisible(false);
+                groupBy.setRequired(false);
+                getItem().setGroupBy(null);
             }
             dashboardConfig.setQuery(dashboardService.getQueryStringForCount(entityField.getValue(), fieldField.getValue()));
 
@@ -73,6 +78,8 @@ public class DashboardConfigEdit extends AbstractEditor<DashboardConfig> {
 
         groupBy.addValueChangeListener(e -> {
             DashboardConfig dashboardConfig = getItem();
+            MetaProperty property = groupBy.getValue();
+            dashboardConfig.setGroupBy(property.getName());
             dashboardConfig.setQuery(dashboardService.getQueryStringForCount(entityField.getValue(), fieldField.getValue(), ((MetaProperty)groupBy.getValue()).getName()));
         });
 
@@ -88,6 +95,10 @@ public class DashboardConfigEdit extends AbstractEditor<DashboardConfig> {
         if( !StringUtils.isEmpty(fieldField.getValue()) )
         {
             fieldLookup.setValue(metadata.getClass(entityField.getValue().toString()).getProperty(fieldField.getValue().toString()));
+        }
+        if( !StringUtils.isEmpty(groupByField.getValue()))
+        {
+            groupBy.setValue(metadata.getClass(metadata.getClass(entityField.getValue().toString()).getProperty(fieldField.getValue().toString()).getJavaType()).getProperty(groupByField.getValue().toString()));
         }
     }
 

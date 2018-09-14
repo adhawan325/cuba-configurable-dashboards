@@ -3,7 +3,6 @@ package com.non.confdash.web.screens;
 import com.haulmont.charts.gui.amcharts.model.*;
 import com.haulmont.charts.gui.components.charts.PieChart;
 import com.haulmont.charts.gui.components.charts.SerialChart;
-import com.haulmont.charts.gui.data.DataItem;
 import com.haulmont.charts.gui.data.ListDataProvider;
 import com.haulmont.charts.gui.data.MapDataItem;
 import com.haulmont.cuba.core.global.Metadata;
@@ -38,31 +37,32 @@ public class ConfigurableDashboardScreen extends AbstractWindow {
         Map<String, Map<String, Long>> data = chartDataService.getData();
         for (String chartName : data.keySet()) {
             List<MapDataItem> mapDataItems = getMapDataItemFromMap(data.get(chartName));
-            if (chartDataService.getChartTypeByName(chartName) == ConfChartType.pieChart) {
+            ConfChartType chartType = chartDataService.getChartTypeByName(chartName);
+            if (chartType == ConfChartType.PIE) {
                 grid.add(getPieChart(chartName, mapDataItems));
             }
-            if (chartDataService.getChartTypeByName(chartName) == ConfChartType.serialChart) {
-                grid.add(getSerialChart(chartName, mapDataItems));
+            else {
+                grid.add(getSerialChart(chartName, mapDataItems, chartType ));
             }
         }
         super.ready();
     }
 
-    private SerialChart getSerialChart(String name, List<MapDataItem> mapDataItems) {
+    private SerialChart getSerialChart(String name, List<MapDataItem> mapDataItems, ConfChartType type) {
         SerialChart chart = factory.createComponent(SerialChart.class);
+
         chart.setDataProvider(getDataProviderFromMap(mapDataItems));
         chart.setCategoryField("key");
-        Graph graph = new Graph();
-        graph.setValueField("value");
-        graph.setHidden(false);
-         chart.addGraphs(graph);
+
+        chart.addGraphs(getGraph(type));
         ValueAxis valueAxis = new ValueAxis();
         valueAxis.setType(ValueAxisType.NUMERIC);
         valueAxis.setTitle("value");
         chart.addValueAxes(valueAxis);
-
         CategoryAxis categoryAxis = new CategoryAxis();
+        categoryAxis.setLabelRotation(45);
         chart.setCategoryAxis(categoryAxis);
+
         chart.setHeight("100%");
         chart.setWidth("100%");
         chart.setAutoResize(true);
@@ -72,6 +72,19 @@ public class ConfigurableDashboardScreen extends AbstractWindow {
         return chart;
     }
 
+    private Graph getGraph(ConfChartType type)
+    {
+        Graph graph = new Graph();
+        graph.setValueField("value");
+        if( type == ConfChartType.COLUMN) {graph.setType(GraphType.COLUMN);}
+        else if( type == ConfChartType.SMOOTHED_LINE) {graph.setType(GraphType.SMOOTHED_LINE);}
+        else if( type == ConfChartType.STEP) {graph.setType(GraphType.STEP);}
+        else {graph.setType(GraphType.LINE);}
+
+        graph.setFillAlphas(Double.valueOf(0.5));
+        graph.setHidden(false);
+        return  graph;
+    }
     private PieChart getPieChart(String name, List<MapDataItem> mapDataItems) {
         PieChart chart = factory.createComponent(PieChart.class);
         chart.setTitleField("key");

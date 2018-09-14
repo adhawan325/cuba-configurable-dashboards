@@ -12,8 +12,17 @@
     </dsContext>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="windowActions"
+    <layout expand="fieldGroup"
             spacing="true">
+        <hbox spacing="true">
+            <lookupField id="entityLookup"
+                         caption="Select Entity"/>
+            <lookupField id="fieldLookup"
+                         caption="Select Field"
+                         editable="false"/>
+            <lookupField id="groupBy"
+                         caption="GroupBy"/>
+        </hbox>
         <fieldGroup id="fieldGroup"
                     datasource="dashboardConfigDs">
             <column width="250px">
@@ -25,17 +34,10 @@
                 <field property="query"
                        rows="5"/>
                 <field property="type"/>
+                <field editable="false"
+                       property="groupBy"/>
             </column>
         </fieldGroup>
-        <hbox spacing="true">
-            <lookupField id="entityLookup"
-                         caption="Select Entity"/>
-            <lookupField id="fieldLookup"
-                         caption="Select Field"
-                         editable="false"/>
-            <lookupField id="groupBy"
-                         caption="GroupBy"/>
-        </hbox>
         <frame id="windowActions"
                screen="editWindowActions"/>
     </layout>

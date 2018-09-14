@@ -13,6 +13,7 @@ create table NONCCDB_DASHBOARD_CONFIG (
     ENTITY varchar(255) not null,
     FIELD varchar(255) not null,
     QUERY longvarchar,
+    GROUP_BY varchar(255),
     TYPE_ integer not null,
     --
     primary key (ID)

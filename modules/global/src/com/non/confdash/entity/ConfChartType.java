@@ -6,9 +6,11 @@ import javax.annotation.Nullable;
 
 
 public enum ConfChartType implements EnumClass<Integer> {
-
-    pieChart(10),
-    serialChart(20);
+    PIE(10),
+    LINE(20),
+    COLUMN(30),
+    STEP(40),
+    SMOOTHED_LINE(50);
 
     private Integer id;
 
