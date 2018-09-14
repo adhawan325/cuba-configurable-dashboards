@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<screen-config xmlns="http://schemas.haulmont.com/cuba/screens.xsd">
+    <screen id="nonccdb$DashboardConfig.browse"
+            template="com/non/confdash/web/dashboardconfig/dashboard-config-browse.xml"/>
+    <screen id="nonccdb$DashboardConfig.edit"
+            template="com/non/confdash/web/dashboardconfig/dashboard-config-edit.xml"/>
+    <screen id="nonccdb$UserDashboardConfig.browse"
+            template="com/non/confdash/web/userdashboardconfig/user-dashboard-config-browse.xml"/>
+    <screen id="nonccdb$UserDashboardConfig.edit"
+            template="com/non/confdash/web/userdashboardconfig/user-dashboard-config-edit.xml"/>
+    <screen id="configurable-dashboard-screen"
+            template="com/non/confdash/web/screens/configurable-dashboard-screen.xml"/>
+</screen-config>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<views xmlns="http://schemas.haulmont.com/cuba/view.xsd">
+    <view class="com.non.confdash.entity.UserDashboardConfig"
+          extends="_local"
+          name="userDashboardConfig-view">
+        <property name="dashboard"
+                  view="_minimal">
+            <property name="entity"/>
+            <property name="field"/>
+            <property name="query"/>
+            <property name="type"/>
+        </property>
+    </view>
+</views>

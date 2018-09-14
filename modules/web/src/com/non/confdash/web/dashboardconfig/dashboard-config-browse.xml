@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://browseCaption"
+        class="com.non.confdash.web.dashboardconfig.DashboardConfigBrowse"
+        focusComponent="dashboardConfigsTable"
+        lookupComponent="dashboardConfigsTable"
+        messagesPack="com.non.confdash.web.dashboardconfig">
+    <dsContext>
+        <groupDatasource id="dashboardConfigsDs"
+                         class="com.non.confdash.entity.DashboardConfig"
+                         view="_local">
+            <query>
+                <![CDATA[select e from nonccdb$DashboardConfig e]]>
+            </query>
+        </groupDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="dashboardConfigsTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="dashboardConfigsTable"
+                datasource="dashboardConfigsDs">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="dashboardConfigsTable"
+                    width="100%">
+            <actions>
+                <action id="create"/>
+                <action id="edit"/>
+                <action id="remove"/>
+            </actions>
+            <columns>
+                <column id="name"/>
+                <column id="entity"/>
+                <column id="field"/>
+                <column id="query"/>
+                <column id="type"/>
+            </columns>
+            <rows datasource="dashboardConfigsDs"/>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn"
+                        action="dashboardConfigsTable.create"/>
+                <button id="editBtn"
+                        action="dashboardConfigsTable.edit"/>
+                <button id="removeBtn"
+                        action="dashboardConfigsTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+    </layout>
+</window>

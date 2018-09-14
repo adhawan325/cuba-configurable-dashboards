@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://editorCaption"
+        class="com.non.confdash.web.dashboardconfig.DashboardConfigEdit"
+        datasource="dashboardConfigDs"
+        focusComponent="fieldGroup"
+        messagesPack="com.non.confdash.web.dashboardconfig">
+    <dsContext>
+        <datasource id="dashboardConfigDs"
+                    class="com.non.confdash.entity.DashboardConfig"
+                    view="_local"/>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="windowActions"
+            spacing="true">
+        <fieldGroup id="fieldGroup"
+                    datasource="dashboardConfigDs">
+            <column width="250px">
+                <field property="name"/>
+                <field editable="false"
+                       property="entity"/>
+                <field editable="false"
+                       property="field"/>
+                <field property="query"
+                       rows="5"/>
+                <field property="type"/>
+            </column>
+        </fieldGroup>
+        <hbox spacing="true">
+            <lookupField id="entityLookup"
+                         caption="Select Entity"/>
+            <lookupField id="fieldLookup"
+                         caption="Select Field"
+                         editable="false"/>
+            <lookupField id="groupBy"
+                         caption="GroupBy"/>
+        </hbox>
+        <frame id="windowActions"
+               screen="editWindowActions"/>
+    </layout>
+</window>

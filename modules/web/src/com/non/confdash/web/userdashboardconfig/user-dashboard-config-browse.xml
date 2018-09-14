@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://browseCaption"
+        class="com.non.confdash.web.userdashboardconfig.UserDashboardConfigBrowse"
+        focusComponent="userDashboardConfigsTable"
+        lookupComponent="userDashboardConfigsTable"
+        messagesPack="com.non.confdash.web.userdashboardconfig">
+    <dsContext>
+        <groupDatasource id="userDashboardConfigsDs"
+                         class="com.non.confdash.entity.UserDashboardConfig"
+                         view="userDashboardConfig-view">
+            <query>
+                <![CDATA[select e from nonccdb$UserDashboardConfig e]]>
+            </query>
+        </groupDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="userDashboardConfigsTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="userDashboardConfigsTable"
+                datasource="userDashboardConfigsDs">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="userDashboardConfigsTable"
+                    width="100%">
+            <actions>
+                <action id="create"/>
+                <action id="edit"/>
+                <action id="remove"/>
+            </actions>
+            <columns>
+                <column id="dashboard"/>
+            </columns>
+            <rows datasource="userDashboardConfigsDs"/>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn"
+                        action="userDashboardConfigsTable.create"/>
+                <button id="editBtn"
+                        action="userDashboardConfigsTable.edit"/>
+                <button id="removeBtn"
+                        action="userDashboardConfigsTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+    </layout>
+</window>
