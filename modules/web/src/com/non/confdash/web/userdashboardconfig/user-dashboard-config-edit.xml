@@ -28,6 +28,7 @@
                width="100%">
             <actions>
                 <action id="add"/>
+                <action id="remove"/>
             </actions>
             <columns>
                 <column id="name"/>
@@ -42,6 +43,9 @@
                 <button id="addButton"
                         action="userDashboards.add"
                         caption="Add"/>
+                <button id="removeButton"
+                        action="userDashboards.remove"
+                        caption="Remove"/>
             </buttonsPanel>
         </table>
         <frame id="windowActions"

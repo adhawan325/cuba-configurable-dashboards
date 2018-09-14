@@ -9,6 +9,7 @@
             <property name="field"/>
             <property name="query"/>
             <property name="type"/>
+            <property name="groupBy"/>
         </property>
     </view>
 </views>

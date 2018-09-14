@@ -1,6 +1,7 @@
 package com.non.confdash.web.screens;
 
 import com.haulmont.charts.gui.amcharts.model.*;
+import com.haulmont.charts.gui.components.charts.Chart;
 import com.haulmont.charts.gui.components.charts.PieChart;
 import com.haulmont.charts.gui.components.charts.SerialChart;
 import com.haulmont.charts.gui.data.ListDataProvider;
@@ -39,10 +40,10 @@ public class ConfigurableDashboardScreen extends AbstractWindow {
             List<MapDataItem> mapDataItems = getMapDataItemFromMap(data.get(chartName));
             ConfChartType chartType = chartDataService.getChartTypeByName(chartName);
             if (chartType == ConfChartType.PIE) {
-                grid.add(getPieChart(chartName, mapDataItems));
+                grid.add(enableExport(getPieChart(chartName, mapDataItems)));
             }
             else {
-                grid.add(getSerialChart(chartName, mapDataItems, chartType ));
+                grid.add(enableExport(getSerialChart(chartName, mapDataItems, chartType )));
             }
         }
         super.ready();
@@ -69,6 +70,19 @@ public class ConfigurableDashboardScreen extends AbstractWindow {
         chart.setVisible(true);
         chart.setCaption(name);
         chart.setLegend(new Legend());
+
+
+        Export export = new Export();
+        export.setEnabled(true);
+        chart.setExport(export);
+        return chart;
+    }
+
+    private Chart enableExport(Chart chart)
+    {
+        Export export = new Export();
+        export.setEnabled(true);
+        chart.setExport(export);
         return chart;
     }
 
